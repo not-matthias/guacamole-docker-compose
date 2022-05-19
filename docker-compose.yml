@@ -106,9 +106,8 @@ services:
     container_name: postgres_guacamole_compose
     environment:
       PGDATA: /var/lib/postgresql/data/guacamole
-      POSTGRES_DB: guacamole_db
-      POSTGRES_PASSWORD: 'ChooseYourOwnPasswordHere1234'
-      POSTGRES_USER: guacamole_user
+    env_file:
+      - .env
     image: postgres:13.4
     networks:
       guacnetwork_compose:
@@ -125,10 +124,10 @@ services:
     - postgres
     environment:
       GUACD_HOSTNAME: guacd
-      POSTGRES_DATABASE: guacamole_db
       POSTGRES_HOSTNAME: postgres
-      POSTGRES_PASSWORD: 'ChooseYourOwnPasswordHere1234'
-      POSTGRES_USER: guacamole_user
+      POSTGRES_DATABASE: guacamole_db
+    env_file:
+      - .env
     image: guacamole/guacamole
     links:
     - guacd
